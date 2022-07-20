@@ -24,13 +24,14 @@ const Login = () => {
             setTimeout(() => {
                 setAlerta({})
             }, 2500);
+            return
         }
         try {
             const { data } = await clienteAxios.post('/usuarios/login', { email, password })
             console.log(data);
             localStorage.setItem('token', data.token)
             setAuth(data)
-            navigate('/proyectos', { replace: true })
+            navigate('/proyectos')
         } catch (error) {
             setAlerta({
                 msg: error.response.data.msg,
