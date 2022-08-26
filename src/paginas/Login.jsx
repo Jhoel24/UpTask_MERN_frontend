@@ -10,7 +10,7 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [alerta, setAlerta] = useState({})   
 
-    const { setAuth } = useAuth()
+    const { setAuth, auth } = useAuth()
 
     const navigate = useNavigate()
 
@@ -28,10 +28,11 @@ const Login = () => {
         }
         try {
             const { data } = await clienteAxios.post('/usuarios/login', { email, password })
-            console.log(data);
+            // console.log(data);
             localStorage.setItem('token', data.token)
             setAuth(data)
             navigate('/proyectos')
+            navigate(0)
         } catch (error) {
             setAlerta({
                 msg: error.response.data.msg,
@@ -69,6 +70,7 @@ const Login = () => {
                         type="password" 
                         placeholder="Password de registro"
                         className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+                        autoComplete='true'
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                     />
